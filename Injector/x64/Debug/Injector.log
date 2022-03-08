@@ -1,3 +1,5 @@
-﻿  Injector.cpp
-C:\Users\themo\OneDrive\Documents\GitHub\Modding\Injector\Injector.cpp(113): warning C4717: 'Process::WriteProcessMemory' : récurrent sur tous les chemins d'accès de contrôle, la fonction entraînera un dépassement de capacité de la pile d'exécution
+﻿  stdafx.cpp
+  Injector.cpp
+  process.cpp
+  Génération de code en cours...
   Injector.vcxproj -> C:\Users\themo\OneDrive\Documents\GitHub\Modding\x64\Debug\Injector.exe

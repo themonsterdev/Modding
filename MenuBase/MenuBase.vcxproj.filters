@@ -13,24 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\GtaV">
+      <UniqueIdentifier>{ed7ff91f-1cdb-41ae-8825-b7a0001df6b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\GtaV">
+      <UniqueIdentifier>{548c7eb6-25fb-4012-8fbf-531e6651c823}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Log.cpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClCompile>
     <ClCompile Include="stdafx.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="CrossMapping.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Hooking.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="NativeInvoker.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="Pattern.cpp">
@@ -39,29 +33,17 @@
     <ClCompile Include="Script.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="CrossMapping.cpp">
+      <Filter>Fichiers sources\GtaV</Filter>
+    </ClCompile>
+    <ClCompile Include="Hooking.cpp">
+      <Filter>Fichiers sources\GtaV</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeInvoker.cpp">
+      <Filter>Fichiers sources\GtaV</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CrossMapping.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="enums.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Hooking.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Log.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="nativeCaller.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="NativeInvoker.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="natives.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="Pattern.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
@@ -71,8 +53,26 @@
     <ClInclude Include="stdafx.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="CrossMapping.h">
+      <Filter>Fichiers d%27en-tête\GtaV</Filter>
+    </ClInclude>
+    <ClInclude Include="enums.h">
+      <Filter>Fichiers d%27en-tête\GtaV</Filter>
+    </ClInclude>
+    <ClInclude Include="Hooking.h">
+      <Filter>Fichiers d%27en-tête\GtaV</Filter>
+    </ClInclude>
+    <ClInclude Include="nativeCaller.h">
+      <Filter>Fichiers d%27en-tête\GtaV</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeInvoker.h">
+      <Filter>Fichiers d%27en-tête\GtaV</Filter>
+    </ClInclude>
+    <ClInclude Include="natives.h">
+      <Filter>Fichiers d%27en-tête\GtaV</Filter>
+    </ClInclude>
     <ClInclude Include="types.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+      <Filter>Fichiers d%27en-tête\GtaV</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

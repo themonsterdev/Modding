@@ -2,7 +2,7 @@
 
 #include "stdafx.h"
 
-bool firstLoaded = false;
+static bool firstLoaded = false;
 
 void DrawNotify(char* Text, int Time = 3000)
 {

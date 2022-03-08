@@ -41,7 +41,7 @@ using namespace std;
 #include <MinHook.h>
 
 // Additional Header Files:
-#include "Log.h"
+#include "Logger.h"
 
 // Gta V
 #include "types.h"

@@ -108,7 +108,7 @@ void __stdcall ScriptFunction(LPVOID lpParameter)
 	}
 	catch (...)
 	{
-		Log::Fatal("Failed scriptFiber");
+		LOGGER_FATAL("Failed scriptFiber");
 	}
 }
 void Hooking::onTickInit()
@@ -138,30 +138,30 @@ void WAIT(DWORD ms)
 
 static void FindIsDLCPresent()
 {
-	DEBUGMSG("  ---->  Getting hooks...\n");
+	LOGGER_DEBUG("  ---->  Getting hooks...\n");
 
 	// 48 89 5C 24 ?? 57 48 83 EC 20 81 F9 ?? ?? ?? ??
 	is_DLC_present = Pattern::FindPattern<IS_DLC_PRESENT>(
 		"\x48\x89\x5C\x24\x00\x57\x48\x83\xEC\x20\x81\xF9\x00\x00\x00\x00",
 		"xxxx?xxxxxxx????"
 	);
-	DEBUGMSG("FindPattern Hooking::m_fpIsDLCPresentTarget     0x%p   llu  %llu", is_DLC_present, is_DLC_present);
-	DEBUGMSG("==============================================================================================================");
+	LOGGER_DEBUG("FindPattern Hooking::m_fpIsDLCPresentTarget     0x%p   llu  %llu", is_DLC_present, is_DLC_present);
+	LOGGER_DEBUG("==============================================================================================================");
 }
 static void FindFixVectors()
 {
-	DEBUGMSG("  ---->  Getting vector3 result fixer func...\n");
+	LOGGER_DEBUG("  ---->  Getting vector3 result fixer func...\n");
 
 	scrNativeCallContext::m_fpSetVectorResults = Pattern::FindPattern<scrNativeCallContext::SetVectorResults>(
 		"\x83\x79\x18\x00\x48\x8B\xD1\x74\x4A\xFF\x4A\x18\x48\x63\x4A\x18\x48\x8D\x41\x04\x48\x8B\x4C\xCA",
 		"xxx?xxxxxxxxxxxxxxxxxxxx"
 	);
-	DEBUGMSG("FindPattern Hooking::m_fpSetVectorsResults     0x%p   llu  %llu", scrNativeCallContext::m_fpSetVectorResults, scrNativeCallContext::m_fpSetVectorResults);
-	DEBUGMSG("==============================================================================================================");
+	LOGGER_DEBUG("FindPattern Hooking::m_fpSetVectorsResults     0x%p   llu  %llu", scrNativeCallContext::m_fpSetVectorResults, scrNativeCallContext::m_fpSetVectorResults);
+	LOGGER_DEBUG("==============================================================================================================");
 }
 static void FindNatives()
 {
-	DEBUGMSG("  ---->  Getting native registration table...\n");
+	LOGGER_DEBUG("  ---->  Getting native registration table...\n");
 
 	char* address = Pattern::FindPattern<char*>(
 		"\x48\x8D\x0D\x00\x00\x00\x00\x48\x8B\x14\xFA\xE8\x00\x00\x00\x00\x48\x85\xC0\x75\x0A",
@@ -169,24 +169,24 @@ static void FindNatives()
 	);
 
 	char* location = reinterpret_cast<char*>(address + 3);
-	DEBUGMSG("location 0x%p llu 0x%llu", location, *location);
+	LOGGER_DEBUG("location 0x%p llu 0x%llu", location, *location);
 
 	m_registrationTable = reinterpret_cast<NativeRegistrationNew**>(
 		location + *(int32_t*)location + 4
 	);
-	DEBUGMSG("NativeTable 0x%p llu 0x%llu", m_registrationTable, m_registrationTable);
-	DEBUGMSG("======================================================\n");
+	LOGGER_DEBUG("NativeTable 0x%p llu 0x%llu", m_registrationTable, m_registrationTable);
+	LOGGER_DEBUG("======================================================\n");
 
-	DEBUGMSG("Initializing Native Map...");
+	LOGGER_DEBUG("Initializing Native Map...");
 	CrossMapping::InitNativeMap();
-	DEBUGMSG("Native Map Initialized OK\n");
+	LOGGER_DEBUG("Native Map Initialized OK\n");
 }
 void Hooking::FindPatterns(HMODULE hModuleDll)
 {
 	// GetModuleHandle(NULL) -> C:\Program Files\Epic Games\GTAV\GTA5.exe
 	// hModule				 -> C:\Users\themo\Downloads\Menu_Base\x64\Debug\Menu_Base_DLL.dll
 
-	HMODULE hModuleHandleGtaV = GetModuleHandle(NULL);
+	HMODULE hModuleHandleGtaV = GetModuleHandle(0);
 	Pattern::InitBaseAddress(hModuleHandleGtaV);
 
 	char fileNameA[MAX_PATH];
@@ -194,8 +194,8 @@ void Hooking::FindPatterns(HMODULE hModuleDll)
 	GetModuleFileNameA(hModuleHandleGtaV, fileNameA, MAX_PATH);
 	GetModuleFileNameA(hModuleDll, fileNameB, MAX_PATH);
 
-	DEBUGMSG("%s\t\t   0x%p   llu   0x%llu", fileNameA, hModuleHandleGtaV, hModuleHandleGtaV);
-	DEBUGMSG("%s\t\t   0x%p   llu   0x%llu", fileNameB, hModuleDll,		   hModuleDll);
+	LOGGER_DEBUG("%s\t\t   0x%p   llu   0x%llu", fileNameA, hModuleHandleGtaV, hModuleHandleGtaV);
+	LOGGER_DEBUG("%s\t\t   0x%p   llu   0x%llu", fileNameB, hModuleDll,		   hModuleDll);
 
 	FindIsDLCPresent();
 	FindFixVectors();
@@ -232,19 +232,19 @@ bool Hooking::HookNatives()
 	);
 	if (status != MH_STATUS::MH_OK && status != MH_STATUS::MH_ERROR_ALREADY_CREATED)
 	{
-		Log::Error("Failed to MH_CreateHook : %s", MH_StatusToString(status));
+		LOGGER_ERROR("Failed to MH_CreateHook : %s", MH_StatusToString(status));
 		return false;
 	}
-	DEBUGMSG("MH_CreateHook : OK");
+	LOGGER_DEBUG("MH_CreateHook : OK");
 
 	// Enable the hook for IS_DLC_PRESENT.
 	status = MH_EnableHook(is_DLC_present);
 	if (status != MH_STATUS::MH_OK)
 	{
-		Log::Error("Failed to MH_EnableHook : %s", MH_StatusToString(status));
+		LOGGER_ERROR("Failed to MH_EnableHook : %s", MH_StatusToString(status));
 		return false;
 	}
-	DEBUGMSG("MH_CreateHook : OK");
+	LOGGER_DEBUG("MH_CreateHook : OK");
 
 	return true;
 }
@@ -255,20 +255,20 @@ BOOL Hooking::InitializeHooks()
 	// MH_Initialize
 	MH_STATUS status = MH_Initialize();
 	if (status == MH_STATUS::MH_OK)
-		DEBUGMSG("MH_Initialize Initialized OK");
+		LOGGER_DEBUG("MH_Initialize Initialized OK");
 	else
 	{
-		Log::Error("Failed to MH_Initialize : %s", MH_StatusToString(status));
+		LOGGER_ERROR("Failed to MH_Initialize : %s", MH_StatusToString(status));
 
 		returnVal = FALSE;
 	}
 
 	// HookNatives
 	if (HookNatives())
-		DEBUGMSG("HookNatives Initialized OK");
+		LOGGER_DEBUG("HookNatives Initialized OK");
 	else
 	{
-		Log::Error("Failed to initialize NativeHooks");
+		LOGGER_ERROR("Failed to initialize NativeHooks");
 		returnVal = FALSE;
 	}
 
@@ -281,9 +281,6 @@ void Hooking::Start(HMODULE hModule)
 {
 	DisableThreadLibraryCalls(hModule);
 
-	DEBUGMSG("Start hooks");
-	Log::Init(hModule);
-
 	// Init Patterns/Hooks
 	FindPatterns(hModule);
 	InitializeHooks();
@@ -294,22 +291,22 @@ void Hooking::Stop()
 	MH_STATUS status = MH_DisableHook(is_DLC_present);
 	if (status != MH_STATUS::MH_OK)
 	{
-		Log::Error("Failed to MH_DisableHook :%s\n", MH_StatusToString(status));
+		LOGGER_ERROR("Failed to MH_DisableHook :%s\n", MH_StatusToString(status));
 		return;
 	}
-	DEBUGMSG("MH_DisableHook : OK");
+	LOGGER_DEBUG("MH_DisableHook : OK");
 
 	// Remove the hook for IS_DLC_PRESENT.
 	status = MH_RemoveHook(is_DLC_present);
 	if (status != MH_STATUS::MH_OK)
 	{
-		Log::Error("Failed to MH_RemoveHook :%s\n", MH_StatusToString(status));
+		LOGGER_ERROR("Failed to MH_RemoveHook :%s\n", MH_StatusToString(status));
 		return;
 	}
-	DEBUGMSG("MH_RemoveHook : OK");
+	LOGGER_DEBUG("MH_RemoveHook : OK");
 
 	// Uninitialize MinHook.
 	status = MH_Uninitialize();
 	if (status != MH_STATUS::MH_OK)
-		Log::Error("Failed to MH_Uninitialize :%s\n", MH_StatusToString(status));
+		LOGGER_ERROR("Failed to MH_Uninitialize :%s\n", MH_StatusToString(status));
 }

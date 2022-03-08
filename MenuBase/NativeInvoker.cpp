@@ -32,7 +32,7 @@ uint64_t* nativeCall()
 		}
 		__except (exceptionAddress = (GetExceptionInformation())->ExceptionRecord->ExceptionAddress, EXCEPTION_EXECUTE_HANDLER)
 		{
-			Log::Error("executing native 0x%016llx at address %p.", g_hash, exceptionAddress);
+			LOGGER_ERROR("executing native 0x%016llx at address %p.", g_hash, exceptionAddress);
 		}
 	}
 
