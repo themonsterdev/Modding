@@ -174,7 +174,7 @@ static void FindNatives()
 	m_registrationTable = reinterpret_cast<NativeRegistrationNew**>(
 		location + *(int32_t*)location + 4
 	);
-	LOGGER_DEBUG("NativeTable 0x%p llu 0x%llu", m_registrationTable, m_registrationTable);
+	LOGGER_DEBUG("NativeTable 0x%p llu %llu", m_registrationTable, m_registrationTable);
 	LOGGER_DEBUG("======================================================\n");
 
 	LOGGER_DEBUG("Initializing Native Map...");
@@ -194,8 +194,8 @@ void Hooking::FindPatterns(HMODULE hModuleDll)
 	GetModuleFileNameA(hModuleHandleGtaV, fileNameA, MAX_PATH);
 	GetModuleFileNameA(hModuleDll, fileNameB, MAX_PATH);
 
-	LOGGER_DEBUG("%s\t\t   0x%p   llu   0x%llu", fileNameA, hModuleHandleGtaV, hModuleHandleGtaV);
-	LOGGER_DEBUG("%s\t\t   0x%p   llu   0x%llu", fileNameB, hModuleDll,		   hModuleDll);
+	LOGGER_DEBUG("%s\t\t   0x%p   llu   %llu", fileNameA, hModuleHandleGtaV, hModuleHandleGtaV);
+	LOGGER_DEBUG("%s\t\t   0x%p   llu   %llu", fileNameB, hModuleDll,		   hModuleDll);
 
 	FindIsDLCPresent();
 	FindFixVectors();

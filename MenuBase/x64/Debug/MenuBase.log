@@ -1,1 +1,9 @@
-﻿  MenuBase.vcxproj -> C:\Users\themo\OneDrive\Documents\GitHub\Modding\x64\Debug\MenuBase.dll
+﻿  CrossMapping.cpp
+  Hooking.cpp
+  NativeInvoker.cpp
+  Pattern.cpp
+  Script.cpp
+  dllmain.cpp
+  stdafx.cpp
+  Génération de code en cours...
+  MenuBase.vcxproj -> C:\Users\themo\OneDrive\Documents\GitHub\Modding\x64\Debug\MenuBase.dll

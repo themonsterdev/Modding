@@ -12,10 +12,10 @@ int main(int argc, char* argv[])
 {
 	char processName[]				= "GTA5.exe";
 	char moduleName[]				= "MenuBase.dll";
-	char InjectorName[]				= "Injector";
+	char injectorName[]				= "Injector";
 
 	// Logger
-	char* loggerPath				= GetLogFilepath(argv[0], InjectorName);
+	char* loggerPath				= GetLogFilepath(argv[0], injectorName);
 	Logger::Init(loggerPath);
 
 	// Process
