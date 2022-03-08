@@ -16,9 +16,43 @@
 
 using namespace std;
 
-DWORD FindProcessId(const char* processName)
+// https://docs.microsoft.com/en-us/windows/win32/toolhelp/taking-a-snapshot-and-viewing-processes
+class Process
 {
-	PROCESSENTRY32 pe32 { 0 };
+public:
+
+	Process(const char* processName);
+
+	DWORD GetProcessId();
+
+	BOOL ReadProcessMemory(
+		HANDLE hProcess,
+		LPCVOID lpBaseAddress,
+		LPVOID lpBuffer,
+		SIZE_T nSize
+	);
+
+	BOOL WriteProcessMemory(
+		HANDLE hProcess,
+		LPVOID lpBaseAddress,
+		LPCVOID lpBuffer,
+		SIZE_T nSize
+	);
+
+private:
+
+	const char* m_processName;
+	DWORD m_dProcessId;
+};
+
+Process::Process(const char* processName)
+	: m_processName	(processName)
+	, m_dProcessId	(0)
+{}
+
+DWORD Process::GetProcessId()
+{
+	PROCESSENTRY32 pe32{ 0 };
 	DWORD result = 0;
 
 	// Take a snapshot of all processes in the system.
@@ -42,22 +76,40 @@ DWORD FindProcessId(const char* processName)
 	{
 		// printf("Checking process %ls\n", pe32.szExeFile);
 
-		if (strcmp(processName, pe32.szExeFile) == 0)
+		if (strcmp(m_processName, pe32.szExeFile) == 0)
 		{
 			result = pe32.th32ProcessID;
 
-			printf("[+]Found %s\n", (const char*)pe32.szExeFile);
+			printf("[+]Found %s\n", pe32.szExeFile);
 			printf("[+]Process ID: %u.\n", result);
 			break;
 		}
-	}
-	while (Process32Next(hProcessSnapshot, &pe32));
+	} while (Process32Next(hProcessSnapshot, &pe32));
 
 	if (result == 0)
 		printf("[!]Unable to find Process ID\n");
 
 	CloseHandle(hProcessSnapshot);
 	return result;
+}
+
+BOOL Process::ReadProcessMemory(
+	HANDLE hProcess,
+	LPCVOID lpBaseAddress,
+	LPVOID lpBuffer,
+	SIZE_T nSize
+) {
+	SIZE_T lpNumberOfBytesRead;
+	return ::ReadProcessMemory(hProcess, lpBaseAddress, lpBuffer, nSize, &lpNumberOfBytesRead) && lpNumberOfBytesRead > 0;
+}
+
+BOOL Process::WriteProcessMemory(
+	HANDLE hProcess,
+	LPVOID lpBaseAddress,
+	LPCVOID lpBuffer,
+	SIZE_T nSize
+) {
+	return WriteProcessMemory(hProcess, lpBaseAddress, lpBuffer, nSize);
 }
 
 BOOL InjectDll(const int& processId, const string& dllFilepath)
@@ -135,9 +187,33 @@ char* GetDllFilepath(string arg0, const char* dllFilename)
 	return dllFilepath;
 }
 
+// https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-writeprocessmemory
+// https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-readprocessmemory
+
+VOID CopyProcessMemory(
+	HANDLE hSrc, LPCVOID lpSrcBaseAddress,
+	HANDLE hDest, LPVOID lpDestBaseAddress,
+	SIZE_T nSize)
+{
+	CHAR lpBuffer[MAXCHAR] {};
+	SIZE_T lpNumberOfBytesRead;
+
+	BOOL success = ReadProcessMemory(hSrc, lpSrcBaseAddress, lpBuffer, nSize, &lpNumberOfBytesRead);
+	if (success)
+		return;
+
+	success = WriteProcessMemory(hDest, lpDestBaseAddress, lpBuffer, nSize, &lpNumberOfBytesRead);
+	if (success)
+		return;
+}
+
 int main(int argc, char* argv[])
 {
-	DWORD processId		= FindProcessId("GTA5.exe");
+	shared_ptr<Process> gtavProcess = make_shared<Process>("GTA5.exe");
+	DWORD processId					= gtavProcess->GetProcessId();
+	printf("%d.\n", processId);
+	return EXIT_SUCCESS;
+
 	char* dllFilepath	= GetDllFilepath(argv[0], "MenuBase.dll");
 
 	if (InjectDll(processId, dllFilepath) == 0)
