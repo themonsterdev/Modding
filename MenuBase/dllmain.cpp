@@ -1,10 +1,7 @@
-// dllmain.cpp : Defines the entry point for the DLL application.
 #include "stdafx.h"
 
 static HANDLE g_hThread		= nullptr;
 static DWORD g_dwThreadId	= 0;
-
-void StopThread(HMODULE hModule);
 
 char* GetModuleFilepath(HMODULE hModule)
 {
@@ -13,7 +10,6 @@ char* GetModuleFilepath(HMODULE hModule)
 	GetModuleFileNameA(hModule, moduleFilepath, MAX_PATH);
 	return moduleFilepath;
 }
-
 char* GetModuleFolder(char* moduleFilepath, const char* filepath)
 {
 	size_t slash = -1;
@@ -38,9 +34,20 @@ char* GetModuleFolder(char* moduleFilepath, const char* filepath)
 	return nullptr;
 }
 
+// Thread
+void StopThread(HMODULE hModule)
+{
+	Hooking::Uninitialize();
+
+	LOGGER_DEBUG("FreeConsole");
+	FreeConsole(); // Free console require for freeze gtav
+
+	FreeLibraryAndExitThread(hModule, EXIT_SUCCESS);
+}
 DWORD WINAPI StartThread(LPVOID lpParam)
 {
 	HMODULE hModule = reinterpret_cast<HMODULE>(lpParam);
+	DisableThreadLibraryCalls(hModule);
 
 	AllocConsole();
 	FILE* pFile;
@@ -52,9 +59,24 @@ DWORD WINAPI StartThread(LPVOID lpParam)
 	char* folderpath	= GetModuleFolder(filepath, "MenuBase");
 
 	Logger::Init(folderpath);
-	LOGGER_DEBUG("AAA %s", folderpath);
 
-	Hooking::Start(hModule);
+	LOGGER_DEBUG("=============================================================================================");
+	LOGGER_DEBUG("----> Getting Base addresses...");
+	// GetModuleHandle(NULL) -> C:\Program Files\Epic Games\GTAV\GTA5.exe
+	// hModule				 -> C:\Users\themo\Downloads\Menu_Base\x64\Debug\Menu_Base_DLL.dll
+
+	char fileNameB[MAX_PATH];
+	GetModuleFileNameA(hModule, fileNameB, MAX_PATH);
+	LOGGER_DEBUG("- 0x%p -> %s", hModule, fileNameB);
+
+	HMODULE hModuleHandleGtaV = GetModuleHandle(0); // Base addresse
+	char fileNameA[MAX_PATH];
+	GetModuleFileNameA(hModuleHandleGtaV, fileNameA, MAX_PATH);
+	LOGGER_DEBUG("- 0x%p -> %s", hModuleHandleGtaV, fileNameA);
+	LOGGER_DEBUG("- 0x%p -> %s", GetCurrentProcess(), fileNameA);
+
+	Pattern::InitBaseAddress(hModuleHandleGtaV);
+	Hooking::Initialize();
 
 	while (true)
 	{
@@ -66,16 +88,6 @@ DWORD WINAPI StartThread(LPVOID lpParam)
 
 	StopThread(hModule);
 	return 0;
-}
-
-void StopThread(HMODULE hModule)
-{
-	Hooking::Stop();
-
-	LOGGER_DEBUG("FreeConsole");
-	FreeConsole(); // Free console require for freeze gtav
-
-	FreeLibraryAndExitThread(hModule, EXIT_SUCCESS);
 }
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved)

@@ -1,9 +1,5 @@
 #pragma once
 
-#include <windows.h>
-#include <Xinput.h>
-#pragma comment(lib, "XInput.lib")
-
 enum eAudioFlag
 {
 	AudioFlagActivateSwitchWheelAudio,

@@ -3,7 +3,7 @@
 // Generated 14 Dec 2018
 
 #include "types.h"
-#include "nativeCaller.h"
+#include "invoker.h"
 
 namespace PLAYER
 {

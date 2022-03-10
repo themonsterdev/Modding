@@ -1,23 +1,20 @@
 #pragma once
 
-typedef void(__cdecl* NativeHandler)(scrNativeCallContext*);
-
 class Hooking
 {
 private:
 
-	static BOOL InitializeHooks();
-	static void FindPatterns(HMODULE hModule);
+	static BOOL CreateHook(LPVOID pTarget, LPVOID pDetour, LPVOID* ppOriginal);
+	static BOOL EnableHook(LPVOID pTarget);
 
 public:
 
-	static void Start(HMODULE);
-	static void Stop();
+	static BOOL Initialize();
+	static BOOL Uninitialize();
 
 	static void onTickInit();
-	static bool HookNatives();
+	static BOOL HookNatives();
 
-	static NativeHandler GetNativeHandler(uint64_t hash);
 };
 
 void WAIT(DWORD ms);

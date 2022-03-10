@@ -11,15 +11,15 @@ void Logger::Init(const char* filepath)
 	strcpy_s(g_logFilename, filepath);
 	strcat_s(g_logFilename, ".log");
 
-	char chLogBuff[CHARS_FOR_BUFF];
-	sprintf_s(chLogBuff, "INIT: Logger\n");
-
 	FILE* file;
 	if ((fopen_s(&file, g_logFilename, "w")) == 0)
 	{
-		fprintf_s(file, "%s", chLogBuff);
+		char str[1] = { 0 };
+		fprintf_s(file, "%s", str);
 		fclose(file);
 	}
+
+	LOGGER_LOG("Logger initialized...");
 }
 
 #ifdef _DEBUG
@@ -79,9 +79,7 @@ void Logger::Log(const char* fmt, ...)
 		fclose(file);
 	}
 
-	sprintf_s(chLogBuff, "%s\n", chParameters);
-	OutputDebugStringA(chLogBuff);
-	printf("%s\n", chLogBuff);
+	printf("%s", chLogBuff);
 }
 
 void Logger::Error(const char* fmt, ...)
@@ -108,7 +106,7 @@ void Logger::Error(const char* fmt, ...)
 	}
 
 	MessageBoxA(NULL, chLogBuff, "ERROR", MB_ICONERROR);
-	printf("%s\n", chLogBuff);
+	printf("%s", chLogBuff);
 }
 
 void Logger::Fatal(const char* fmt, ...)
@@ -135,6 +133,6 @@ void Logger::Fatal(const char* fmt, ...)
 	}
 
 	MessageBoxA(NULL, chLogBuff, "FATAL ERROR", MB_ICONERROR);
-	printf("%s\n", chLogBuff);
+	printf("%s", chLogBuff);
 	ExitProcess(0);
 }

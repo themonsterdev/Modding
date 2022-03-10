@@ -530,7 +530,7 @@ MH_STATUS WINAPI MH_Uninitialize(VOID)
 
     return status;
 }
-
+#include <stdio.h>
 //-------------------------------------------------------------------------
 MH_STATUS WINAPI MH_CreateHook(LPVOID pTarget, LPVOID pDetour, LPVOID *ppOriginal)
 {

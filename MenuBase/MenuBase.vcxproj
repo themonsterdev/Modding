@@ -123,7 +123,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;MENUBASE_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
+      <ConformanceMode>false</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -155,12 +155,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CrossMapping.cpp" />
+    <ClCompile Include="crossMapping.cpp" />
     <ClCompile Include="dllmain.cpp" />
-    <ClCompile Include="Hooking.cpp" />
-    <ClCompile Include="NativeInvoker.cpp" />
-    <ClCompile Include="Pattern.cpp" />
-    <ClCompile Include="Script.cpp" />
+    <ClCompile Include="hooking.cpp" />
+    <ClCompile Include="invoker.cpp" />
+    <ClCompile Include="pattern.cpp" />
+    <ClCompile Include="script.cpp" />
+    <ClCompile Include="scriptEngine.cpp" />
+    <ClCompile Include="scriptHooking.cpp" />
     <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -172,14 +174,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CrossMapping.h" />
+    <ClInclude Include="crossMapping.h" />
     <ClInclude Include="enums.h" />
-    <ClInclude Include="Hooking.h" />
-    <ClInclude Include="nativeCaller.h" />
-    <ClInclude Include="NativeInvoker.h" />
+    <ClInclude Include="hooking.h" />
+    <ClInclude Include="invoker.h" />
     <ClInclude Include="natives.h" />
-    <ClInclude Include="Pattern.h" />
-    <ClInclude Include="Script.h" />
+    <ClInclude Include="pattern.h" />
+    <ClInclude Include="script.h" />
+    <ClInclude Include="scriptEngine.h" />
+    <ClInclude Include="scriptHooking.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="types.h" />
   </ItemGroup>

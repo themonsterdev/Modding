@@ -27,7 +27,7 @@ inline T Pattern::FindPattern(const char* bMask, const char* sMask)
 
 		if (CompareMemory((uint8_t*)address, (uint8_t*)bMask, sMask))
 		{
-			LOGGER_DEBUG("address p 0x%p llu %llu", address, address);
+			LOGGER_DEBUG("address 0x%p", address);
 			return reinterpret_cast<T>(address);
 		}
 	}

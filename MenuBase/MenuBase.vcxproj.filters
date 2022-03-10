@@ -13,11 +13,23 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête\GtaV">
-      <UniqueIdentifier>{ed7ff91f-1cdb-41ae-8825-b7a0001df6b7}</UniqueIdentifier>
+    <Filter Include="Fichiers sources\Scripting">
+      <UniqueIdentifier>{e44da53d-41d4-49ef-90b1-9367c8318c29}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\GtaV">
-      <UniqueIdentifier>{548c7eb6-25fb-4012-8fbf-531e6651c823}</UniqueIdentifier>
+    <Filter Include="Fichiers d%27en-tête\Scripting">
+      <UniqueIdentifier>{f3b54e0e-8d99-436b-bc94-3551af5acaf3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\SDK">
+      <UniqueIdentifier>{ed5968fa-58c2-4d5b-809e-f23f6252bd7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\SDK">
+      <UniqueIdentifier>{4ee4419f-4951-499e-a52f-43499bad5b58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Memory">
+      <UniqueIdentifier>{15f90b47-da40-4842-9a20-d5d87a12e995}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Memory">
+      <UniqueIdentifier>{f9704cb8-7d60-4559-9f73-f25af4bb8d4d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -27,52 +39,61 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Pattern.cpp">
+    <ClCompile Include="script.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Script.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="scriptEngine.cpp">
+      <Filter>Fichiers sources\Scripting</Filter>
     </ClCompile>
-    <ClCompile Include="CrossMapping.cpp">
-      <Filter>Fichiers sources\GtaV</Filter>
+    <ClCompile Include="crossMapping.cpp">
+      <Filter>Fichiers sources\Scripting</Filter>
     </ClCompile>
-    <ClCompile Include="Hooking.cpp">
-      <Filter>Fichiers sources\GtaV</Filter>
+    <ClCompile Include="hooking.cpp">
+      <Filter>Fichiers sources\Scripting</Filter>
     </ClCompile>
-    <ClCompile Include="NativeInvoker.cpp">
-      <Filter>Fichiers sources\GtaV</Filter>
+    <ClCompile Include="invoker.cpp">
+      <Filter>Fichiers sources\SDK</Filter>
+    </ClCompile>
+    <ClCompile Include="pattern.cpp">
+      <Filter>Fichiers sources\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="scriptHooking.cpp">
+      <Filter>Fichiers sources\Scripting</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Pattern.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Script.h">
+    <ClInclude Include="script.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="CrossMapping.h">
-      <Filter>Fichiers d%27en-tête\GtaV</Filter>
+    <ClInclude Include="scriptEngine.h">
+      <Filter>Fichiers d%27en-tête\Scripting</Filter>
     </ClInclude>
-    <ClInclude Include="enums.h">
-      <Filter>Fichiers d%27en-tête\GtaV</Filter>
+    <ClInclude Include="crossMapping.h">
+      <Filter>Fichiers d%27en-tête\Scripting</Filter>
     </ClInclude>
-    <ClInclude Include="Hooking.h">
-      <Filter>Fichiers d%27en-tête\GtaV</Filter>
-    </ClInclude>
-    <ClInclude Include="nativeCaller.h">
-      <Filter>Fichiers d%27en-tête\GtaV</Filter>
-    </ClInclude>
-    <ClInclude Include="NativeInvoker.h">
-      <Filter>Fichiers d%27en-tête\GtaV</Filter>
-    </ClInclude>
-    <ClInclude Include="natives.h">
-      <Filter>Fichiers d%27en-tête\GtaV</Filter>
+    <ClInclude Include="hooking.h">
+      <Filter>Fichiers d%27en-tête\Scripting</Filter>
     </ClInclude>
     <ClInclude Include="types.h">
-      <Filter>Fichiers d%27en-tête\GtaV</Filter>
+      <Filter>Fichiers d%27en-tête\SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="enums.h">
+      <Filter>Fichiers d%27en-tête\SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="natives.h">
+      <Filter>Fichiers d%27en-tête\SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="invoker.h">
+      <Filter>Fichiers d%27en-tête\SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="pattern.h">
+      <Filter>Fichiers d%27en-tête\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="scriptHooking.h">
+      <Filter>Fichiers d%27en-tête\Scripting</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

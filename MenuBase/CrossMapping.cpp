@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include <mmsystem.h>
 
-::std::unordered_map<uint64_t, uint64_t> nativeHashMap;
+// https://www.unknowncheats.me/forum/grand-theft-auto-v/144028-grand-theft-auto-reversal-structs-offsets-90.html
+unordered_map<uint64_t, uint64_t> nativeHashMap;
 uint64_t __HASHMAPDATA[] =
 {//1.58
 
@@ -6078,6 +6079,8 @@ uint64_t __HASHMAPDATA[] =
 
 void CrossMapping::InitNativeMap()
 {
+	LOGGER_DEBUG("Initializing Native Map...");
+
 	static int init = 0;
 	struct twoQwords
 	{
@@ -6096,6 +6099,8 @@ void CrossMapping::InitNativeMap()
 		++p2q;
 	}
 	init = 1;
+
+	LOGGER_DEBUG("Native Map Initialized OK");
 }
 
 static nMap nativeCache;

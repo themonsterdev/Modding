@@ -46,11 +46,12 @@ using namespace std;
 // Gta V
 #include "types.h"
 #include "enums.h"
-#include "CrossMapping.h"
-#include "NativeInvoker.h"
-#include "nativeCaller.h"
+#include "crossMapping.h"
+#include "invoker.h"
 #include "natives.h"
 
-#include "Script.h"
-#include "Pattern.h"
-#include "Hooking.h"
+#include "script.h"
+#include "pattern.h"
+#include "scriptHooking.h"
+#include "scriptEngine.h"
+#include "hooking.h"

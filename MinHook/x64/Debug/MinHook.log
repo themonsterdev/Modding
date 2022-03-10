@@ -1,7 +1,2 @@
-﻿  buffer.c
-  hde32.c
-  hde64.c
-  hook.c
-  trampoline.c
-  Génération de code en cours...
+﻿  hook.c
   MinHook.vcxproj -> C:\Users\themo\OneDrive\Documents\GitHub\Modding\x64\Debug\MinHook.lib
