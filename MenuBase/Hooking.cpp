@@ -288,42 +288,7 @@ BOOL WINAPIV HK_IS_DLC_PRESENT(uint32_t dlcHash)
 	return fpIsDLCPresentOriginal(dlcHash);
 }
 
-// MinHook
-BOOL Hooking::CreateHook(LPVOID pTarget, LPVOID pDetour, LPVOID* ppOriginal)
-{
-	MH_STATUS status = MH_CreateHook(pTarget, pDetour, ppOriginal);
-
-	if (status != MH_STATUS::MH_OK && status != MH_STATUS::MH_ERROR_ALREADY_CREATED)
-	{
-		LOGGER_ERROR("Failed to CreateHook : %s", MH_StatusToString(status));
-		return false;
-	}
-
-	LOGGER_DEBUG("CreateHook : OK");
-	return true;
-}
-BOOL Hooking::EnableHook(LPVOID pTarget)
-{
-	MH_STATUS status = MH_EnableHook(pTarget);
-
-	if (status != MH_STATUS::MH_OK)
-	{
-		LOGGER_ERROR("Failed to MH_EnableHook : %s", MH_StatusToString(status));
-		return false;
-	}
-
-	LOGGER_DEBUG("MH_EnableHook : OK");
-	return true;
-}
-BOOL Hooking::HookNatives()
-{
-	bool success = CreateHook(
-		fpIsDLCPresentTarget,
-		HK_IS_DLC_PRESENT,
-		reinterpret_cast<LPVOID*>(&fpIsDLCPresentOriginal)
-	);
-	return success ? EnableHook(fpIsDLCPresentTarget) : false;
-}
+// Initialize/Uninitialize
 
 BOOL Hooking::Initialize()
 {
@@ -337,60 +302,9 @@ BOOL Hooking::Initialize()
 		reinterpret_cast<LPVOID*>(&fpIsDLCPresentOriginal)
 	);
 	return TRUE;
-
-	BOOL returnVal = TRUE;
-
-	// MH_Initialize
-	MH_STATUS status = MH_Initialize();
-	if (status == MH_STATUS::MH_OK)
-		LOGGER_DEBUG("MH_Initialize Initialized OK");
-	else {
-		LOGGER_ERROR("Failed to MH_Initialize : %s", MH_StatusToString(status));
-
-		returnVal = FALSE;
-	}
-
-	// HookNatives
-	if (HookNatives())
-		LOGGER_DEBUG("HookNatives Initialized OK");
-	else {
-		LOGGER_ERROR("Failed to initialize NativeHooks");
-		returnVal = FALSE;
-	}
-
-	return returnVal;
 }
 BOOL Hooking::Uninitialize()
 {
 	UninstallHook(fpIsDLCPresentTarget);
 	return TRUE;
-
-
-	// Disable the hook for IS_DLC_PRESENT.
-	MH_STATUS status = MH_DisableHook(fpIsDLCPresentTarget);
-	if (status != MH_STATUS::MH_OK)
-	{
-		LOGGER_ERROR("Failed to MH_DisableHook :%s\n", MH_StatusToString(status));
-		return false;
-	}
-	LOGGER_DEBUG("MH_DisableHook : OK");
-
-	// Remove the hook for IS_DLC_PRESENT.
-	status = MH_RemoveHook(fpIsDLCPresentTarget);
-	if (status != MH_STATUS::MH_OK)
-	{
-		LOGGER_ERROR("Failed to MH_RemoveHook :%s\n", MH_StatusToString(status));
-		return false;
-	}
-	LOGGER_DEBUG("MH_RemoveHook : OK");
-
-	// Uninitialize MinHook.
-	status = MH_Uninitialize();
-	if (status != MH_STATUS::MH_OK)
-	{
-		LOGGER_ERROR("Failed to MH_Uninitialize :%s\n", MH_StatusToString(status));
-		return false;
-	}
-
-	return true;
 }

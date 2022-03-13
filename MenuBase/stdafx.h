@@ -38,8 +38,6 @@ using namespace std;
 
 #define IsKeyPressed(key) GetAsyncKeyState(key) & 0x8000
 
-#include <MinHook.h>
-
 // Additional Header Files:
 #include "Logger.h"
 
