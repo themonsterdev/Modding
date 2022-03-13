@@ -156,29 +156,52 @@ void InitializeFixVectors()
 	//	sub_7FF6900A76B0 + 10   000 48 8D 41 04                              lea     rax, [rcx + 4]; Load Effective Address
 	//	sub_7FF6900A76B0 + 14   000 48 8B 4C CA 20                           mov     rcx, [rdx + rcx * 8 + 20h]
 
-	scrNativeCallContext::m_fpSetVectorResults = Pattern::FindPattern<scrNativeCallContext::SetVectorResults>(
+	s_setVectorResults = Pattern::FindPattern<SetVectorResults>(
 		"\x83\x79\x18\x00\x48\x8B\xD1\x74\x4A\xFF\x4A\x18\x48\x63\x4A\x18\x48\x8D\x41\x04\x48\x8B\x4C\xCA",
 		"xxx?xxxxxxxxxxxxxxxxxxxx"
 	);
-	LOGGER_DEBUG("Pointeur 0x%p", scrNativeCallContext::m_fpSetVectorResults);
+	LOGGER_DEBUG("Pointeur 0x%p", s_setVectorResults);
 }
 void InitializeNatives()
 {
 	LOGGER_DEBUG("----> Getting ScriptEngine::m_registrationTable...");
+	
+	// 1
+	// .text:00007FF747631D00 48 89 5C 24 08												  mov     [rsp+arg_0], rbx
+	// .text:00007FF747631D05 57                                                              push    rdi
+	// .text:00007FF747631D06 48 83 EC 20                                                     sub     rsp, 20h
+	// .text:00007FF747631D0A 48 8D 0D 1F CC 37 02                                            lea     rcx, unk_7FF7499AE930
+	// .text:00007FF747631D11 E8 C2 AF 00 00                                                  call    sub_7FF74763CCD8
+	// .text:00007FF747631D16 0F B7 15 0B DD 37 02                                            movzx   edx, word ptr cs:dword_7FF7499AFA28
+	// .text:00007FF747631D1D 33 FF                                                           xor     edi, edi
+	// .text:00007FF747631D1F 8B DF                                                           mov     ebx, edi
+	// .text:00007FF747631D21 66 3B FA                                                        cmp     di, dx
+	// .text:00007FF747631D24 73 2C                                                           jnb     short loc_7FF747631D52
 
-	// 48 8D 0D ?? ?? ?? ?? 48 8B 14 FA E8 ?? ?? ?? ?? 48 85 C0 75 0A
-	// 48 8D 0D D0 3F 7D 01 48 8B 14 FA E8 B3 04 48 FF 48 85 C0 75 0A -> 48 8D 05 FF F6 20 FF
-	// 48 8D 0D D0 3F 7D 01 48 8B 14 FA E8 B3 04 48 FF 48 85 C0 75 0A -> 48 8D 05 FF F6 20 FF
-	//
-	//	sub_7FF6900AA934 + 21                                           loc_7FF6900AA955:                       ; CODE XREF: sub_7FF6900AA934+51↓j
-	//	sub_7FF6900AA934 + 21   028 48 8B 53 40                                         mov     rdx, [rbx + 40h]
-	//-	sub_7FF6900AA934 + 25   028 48 8D 0D D0 3F 7D 01                                lea     rcx, unk_7FF69187E930; Load Effective Address
-	//-	sub_7FF6900AA934 + 2C   028 48 8B 14 FA                                         mov     rdx, [rdx + rdi * 8]
-	//-	sub_7FF6900AA934 + 30   028 E8 B3 04 48 FF                                      call    sub_7FF68F52AE1C; Call Procedure
-	//-	sub_7FF6900AA934 + 35   028 48 85 C0                                            test    rax, rax; Logical Compare
-	//-	sub_7FF6900AA934 + 38   028 75 0A                                               jnz     short loc_7FF6900AA978; Jump if Not Zero(ZF = 0)
-	//	sub_7FF6900AA934 + 3A   028 48 8D 05 FF F6 20 FF                                lea     rax, sub_7FF68F2BA074; Load Effective Address
-	//	sub_7FF6900AA934 + 41   028 40 32 F6											xor sil, sil; Logical Exclusive OR
+	// 2
+	// .text:00007FF7481D7BD8                                                 sub_7FF7481D7BD8 proc far
+	// .text:00007FF7481D7BD8 33 C0                                                           xor     eax, eax
+	// .text:00007FF7481D7BDA 48 8D 0D 4F 6D 7D 01                                            lea     rcx, unk_7FF7499AE930
+	// .text:00007FF7481D7BE1 33 D2                                                           xor     edx, edx
+	// .text:00007FF7481D7BE3 41 B8 00 08 00 00                                               mov     r8d, 800h
+	// .text:00007FF7481D7BE9 88 05 61 82 7D 01                                               mov     cs:byte_7FF7499AFE50, al
+	// .text:00007FF7481D7BEF 89 05 3B 75 7D 01                                               mov     cs:dword_7FF7499AF130, eax
+	// .text:00007FF7481D7BF5 88 05 39 75 7D 01                                               mov     cs:byte_7FF7499AF134, al
+	// .text:00007FF7481D7BFB E9 B0 5F 20 00                                                  jmp     near ptr sub_7FF7483DDBB0
+	// .text:00007FF7481D7BFB                                                 sub_7FF7481D7BD8 endp
+	
+	// 3
+	// .text:00007FF7481DA953 76 32                                                           jbe     short loc_7FF7481DA987
+	// .text:00007FF7481DA955
+	// .text:00007FF7481DA955                                                 loc_7FF7481DA955:                       ; CODE XREF: sub_7FF7481DA934+51↓j
+	// .text:00007FF7481DA955 48 8B 53 40                                                     mov     rdx, [rbx+40h]
+	// .text:00007FF7481DA959 48 8D 0D D0 3F 7D 01                                            lea     rcx, unk_7FF7499AE930
+	// .text:00007FF7481DA960 48 8B 14 FA                                                     mov     rdx, [rdx+rdi*8]
+	// .text:00007FF7481DA964 E8 B3 04 48 FF                                                  call    sub_7FF74765AE1C
+	// .text:00007FF7481DA969 48 85 C0                                                        test    rax, rax
+	// .text:00007FF7481DA96C 75 0A                                                           jnz     short loc_7FF7481DA978
+	// .text:00007FF7481DA96E 48 8D 05 FF F6 20 FF                                            lea     rax, sub_7FF7473EA074
+	// .text:00007FF7481DA975 40 32 F6                                                        xor     sil, sil
 
 	//	address + 9
 	//	76 32 48 8B 53 40 48 8D 0D
@@ -192,21 +215,16 @@ void InitializeNatives()
 	// char* location = reinterpret_cast<char*>(address + 9);
 	// LOGGER_DEBUG("NativeTable Location 0x%p", location);
 
-	//	address + 3
-	//	48 8D 0D ?? ?? ?? ?? 48 8B 14 FA E8 ?? ?? ?? ?? 48 85 C0 75 0A
-	// 0x00007FF68131A959
 	char* address = Pattern::FindPattern<char*>(
 		"\x48\x8D\x0D\x00\x00\x00\x00\x48\x8B\x14\xFA\xE8\x00\x00\x00\x00\x48\x85\xC0\x75\x0A",
 		"xx?????xxxxx????xxxxx"
 	);
 
 	// 0x00007FF68131A95C
-	char* location = reinterpret_cast<char*>(address + 3);
+	char* location		= reinterpret_cast<char*>(address + 3);											// 0x00007FF68131A95C
+	s_registrationTable = reinterpret_cast<NativeRegistration**>(location + *(int32_t*)location + 4);	// 0x00007FF682AEE930
 	LOGGER_DEBUG("Location 0x%p", location);
-
-	// 0x00007FF682AEE930
-	ScriptEngine::m_registrationTable = reinterpret_cast<NativeRegistration**>(location + *(int32_t*)location + 4);
-	LOGGER_DEBUG("Pointeur 0x%p", ScriptEngine::m_registrationTable);
+	LOGGER_DEBUG("Pointeur 0x%p", s_registrationTable);
 
 	CrossMapping::InitNativeMap();
 }

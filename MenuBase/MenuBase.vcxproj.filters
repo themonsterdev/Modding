@@ -13,12 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Fichiers sources\Scripting">
-      <UniqueIdentifier>{e44da53d-41d4-49ef-90b1-9367c8318c29}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\Scripting">
-      <UniqueIdentifier>{f3b54e0e-8d99-436b-bc94-3551af5acaf3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers d%27en-tête\SDK">
       <UniqueIdentifier>{ed5968fa-58c2-4d5b-809e-f23f6252bd7e}</UniqueIdentifier>
     </Filter>
@@ -48,9 +42,6 @@
     <ClCompile Include="script.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="scriptEngine.cpp">
-      <Filter>Fichiers sources\Scripting</Filter>
-    </ClCompile>
     <ClCompile Include="invoker.cpp">
       <Filter>Fichiers sources\SDK</Filter>
     </ClCompile>
@@ -73,9 +64,6 @@
     </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="scriptEngine.h">
-      <Filter>Fichiers d%27en-tête\Scripting</Filter>
     </ClInclude>
     <ClInclude Include="types.h">
       <Filter>Fichiers d%27en-tête\SDK</Filter>
