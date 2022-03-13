@@ -14,6 +14,7 @@ public:
 
 	template <typename T>
 	static inline T FindPattern(const char* bMask, const char* sMask);
+
 };
 
 template <typename T>

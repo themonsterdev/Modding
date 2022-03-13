@@ -51,23 +51,20 @@
     <ClCompile Include="scriptEngine.cpp">
       <Filter>Fichiers sources\Scripting</Filter>
     </ClCompile>
-    <ClCompile Include="crossMapping.cpp">
-      <Filter>Fichiers sources\Scripting</Filter>
-    </ClCompile>
     <ClCompile Include="invoker.cpp">
       <Filter>Fichiers sources\SDK</Filter>
     </ClCompile>
     <ClCompile Include="pattern.cpp">
       <Filter>Fichiers sources\Memory</Filter>
     </ClCompile>
-    <ClCompile Include="scriptHooking.cpp">
-      <Filter>Fichiers sources\Scripting</Filter>
-    </ClCompile>
     <ClCompile Include="trampoline.cpp">
       <Filter>Fichiers sources\Hooking</Filter>
     </ClCompile>
     <ClCompile Include="hooking.cpp">
       <Filter>Fichiers sources\Hooking</Filter>
+    </ClCompile>
+    <ClCompile Include="crossMapping.cpp">
+      <Filter>Fichiers sources\SDK</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -78,9 +75,6 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="scriptEngine.h">
-      <Filter>Fichiers d%27en-tête\Scripting</Filter>
-    </ClInclude>
-    <ClInclude Include="crossMapping.h">
       <Filter>Fichiers d%27en-tête\Scripting</Filter>
     </ClInclude>
     <ClInclude Include="types.h">
@@ -98,14 +92,14 @@
     <ClInclude Include="pattern.h">
       <Filter>Fichiers d%27en-tête\Memory</Filter>
     </ClInclude>
-    <ClInclude Include="scriptHooking.h">
-      <Filter>Fichiers d%27en-tête\Scripting</Filter>
-    </ClInclude>
     <ClInclude Include="trampoline.h">
       <Filter>Fichiers d%27en-tête\Hooking</Filter>
     </ClInclude>
     <ClInclude Include="hooking.h">
       <Filter>Fichiers d%27en-tête\Hooking</Filter>
+    </ClInclude>
+    <ClInclude Include="crossMapping.h">
+      <Filter>Fichiers d%27en-tête\SDK</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

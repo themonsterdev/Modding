@@ -1,7 +1,0 @@
-﻿  Injector.cpp
-C:\Users\themo\OneDrive\Documents\GitHub\Modding\Injector\stdafx.h(20,10): fatal error C1083: Impossible d'ouvrir le fichier include : 'Logger.h' : No such file or directory
-  process.cpp
-C:\Users\themo\OneDrive\Documents\GitHub\Modding\Injector\stdafx.h(20,10): fatal error C1083: Impossible d'ouvrir le fichier include : 'Logger.h' : No such file or directory
-  stdafx.cpp
-C:\Users\themo\OneDrive\Documents\GitHub\Modding\Injector\stdafx.h(20,10): fatal error C1083: Impossible d'ouvrir le fichier include : 'Logger.h' : No such file or directory
-  Génération de code en cours...

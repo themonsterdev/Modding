@@ -3,14 +3,14 @@
 static HANDLE g_hThread		= nullptr;
 static DWORD g_dwThreadId	= 0;
 
-char* GetModuleFilepath(HMODULE hModule)
+static char* GetModuleFilepath(HMODULE hModule)
 {
 	static char moduleFilepath[MAX_PATH];
-	memset(moduleFilepath, 0, sizeof moduleFilepath);
+	memset(moduleFilepath, 0, MAX_PATH);
 	GetModuleFileNameA(hModule, moduleFilepath, MAX_PATH);
 	return moduleFilepath;
 }
-char* GetModuleFolder(char* moduleFilepath, const char* filepath)
+static char* GetModuleFolder(char* moduleFilepath, const char* filepath)
 {
 	size_t slash = -1;
 	for (size_t i = 0; i < strlen(moduleFilepath); i++)
@@ -40,12 +40,14 @@ void StopThread(HMODULE hModule)
 	Hooking::Uninitialize();
 
 	LOGGER_DEBUG("FreeConsole");
-	FreeConsole(); // Free console require for freeze gtav
+	FreeConsole(); // Free console require for not freeze gtav
 
 	FreeLibraryAndExitThread(hModule, EXIT_SUCCESS);
 }
 DWORD WINAPI StartThread(LPVOID lpParam)
 {
+	srand((unsigned long)GetTickCount64());
+
 	HMODULE hModule = reinterpret_cast<HMODULE>(lpParam);
 	DisableThreadLibraryCalls(hModule);
 
@@ -73,14 +75,13 @@ DWORD WINAPI StartThread(LPVOID lpParam)
 	char fileNameA[MAX_PATH];
 	GetModuleFileNameA(hModuleHandleGtaV, fileNameA, MAX_PATH);
 	LOGGER_DEBUG("- 0x%p -> %s", hModuleHandleGtaV, fileNameA);
-	LOGGER_DEBUG("- 0x%p -> %s", GetCurrentProcess(), fileNameA);
 
 	Pattern::InitBaseAddress(hModuleHandleGtaV);
 	Hooking::Initialize();
 
 	while (true)
 	{
-		if (IsKeyPressed(VK_NUMPAD2))
+		if (GetAsyncKeyState(VK_NUMPAD2) & 1)
 		{
 			break;
 		}

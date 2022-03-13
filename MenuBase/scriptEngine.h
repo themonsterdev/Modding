@@ -8,8 +8,7 @@ struct NativeRegistration
 	uint64_t		nextRegBase;
 	uint64_t		nextRegKey;
 	NativeHandler	handlers[7];
-	uint32_t		numEntries1;
-	uint32_t		numEntries2;
+	uint32_t		numEntries[2];
 	uint64_t		hashes;
 
 	inline NativeRegistration* getNextRegistration()
@@ -30,7 +29,7 @@ struct NativeRegistration
 	}
 
 	inline uint32_t getNumEntries() {
-		return static_cast<uint32_t>(reinterpret_cast<uint64_t>(&numEntries1)) ^ numEntries1 ^ numEntries2;
+		return static_cast<uint32_t>(reinterpret_cast<uint64_t>(&numEntries[0])) ^ numEntries[0] ^ numEntries[1];
 	}
 
 	inline uint64_t getHash(uint32_t index)

@@ -4,9 +4,9 @@ class scrNativeCallContext
 {
 protected:
 
-	void* m_pReturn;
+	void*						m_pReturn;
 	uint32_t					m_nArgCount;
-	void* m_pArgs;
+	void*						m_pArgs;
 	uint32_t					m_nDataCount;
 	alignas(uintptr_t)uint8_t	m_vectorSpace[192];
 

@@ -10,7 +10,8 @@ NativeHandler ScriptEngine::GetNativeHandler(uint64_t oldHash)
 	if (handler == nullptr)
 	{
 		uint64_t newHash = CrossMapping::MapNative(oldHash);
-		if (newHash == 0) {
+		if (newHash == 0)
+		{
 			LOGGER_DEBUG("Failed to GetNewHashFromOldHash(%llX)", oldHash);
 			return nullptr;
 		}

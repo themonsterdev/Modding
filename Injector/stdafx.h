@@ -9,7 +9,6 @@
 
 // référencer ici les en-têtes supplémentaires nécessaires à votre programme
 #include <Windows.h>
-#include <TlHelp32.h>
 
 #include <memory>
 #include <string>
@@ -17,5 +16,5 @@
 using namespace std;
 
 // Additional Header Files:
-#include "Logger.h"
-#include "Process.h"
+#include "logger.h"
+#include "entry.h"

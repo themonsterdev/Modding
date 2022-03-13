@@ -78,7 +78,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\Logger;</ExternalIncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\Logger;..\Entry;</ExternalIncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);..\x64\Debug;</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -124,7 +124,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;MENUBASE_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
@@ -161,11 +161,13 @@
     <ClCompile Include="pattern.cpp" />
     <ClCompile Include="script.cpp" />
     <ClCompile Include="scriptEngine.cpp" />
-    <ClCompile Include="scriptHooking.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="trampoline.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Entry\Entry.vcxproj">
+      <Project>{22b04f42-9496-460a-a42d-4dbf41ec2964}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\Logger\Logger.vcxproj">
       <Project>{cdfae670-4f3f-4034-a74c-60ad67285097}</Project>
     </ProjectReference>
@@ -179,7 +181,6 @@
     <ClInclude Include="pattern.h" />
     <ClInclude Include="script.h" />
     <ClInclude Include="scriptEngine.h" />
-    <ClInclude Include="scriptHooking.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="trampoline.h" />
     <ClInclude Include="types.h" />

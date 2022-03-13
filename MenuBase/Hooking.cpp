@@ -1,9 +1,6 @@
 // Hooking.cpp
 #include "stdafx.h"
 
-static HANDLE mainFiber = nullptr;
-static DWORD wakeAt		= 0;
-
 typedef BOOL(WINAPIV*IS_DLC_PRESENT)(uint32_t); // length 8
 static IS_DLC_PRESENT	fpIsDLCPresentTarget	= nullptr;
 IS_DLC_PRESENT			fpIsDLCPresentOriginal	= nullptr;
@@ -227,42 +224,6 @@ void InitializePatterns()
 	LOGGER_DEBUG("=============================================================================================");
 }
 
-// Fiber
-
-void __stdcall ScriptFunction(LPVOID lpParameter)
-{
-	try
-	{
-		ScriptMain();
-	}
-	catch (...)
-	{
-		LOGGER_FATAL("Failed scriptFiber");
-	}
-}
-void Hooking::onTickInit()
-{
-	if (mainFiber == nullptr)
-		mainFiber = ConvertThreadToFiber(nullptr);
-
-	if (mainFiber == nullptr)
-		mainFiber = GetCurrentFiber();
-
-	if (timeGetTime() < wakeAt)
-		return;
-
-	static HANDLE scriptFiber = 0;
-	if (scriptFiber == 0)
-		scriptFiber = CreateFiber(0, ScriptFunction, nullptr);
-	else
-		SwitchToFiber(scriptFiber);
-}
-void WAIT(DWORD ms)
-{
-	wakeAt = timeGetTime() + ms;
-	SwitchToFiber(mainFiber);
-}
-
 // Hooks
 
 // Detour function which overrides IS_DLC_PRESENT.
@@ -277,12 +238,7 @@ BOOL WINAPIV HK_IS_DLC_PRESENT(uint32_t dlcHash)
 	{
 		frameCount = newFrameCount;
 
-		Hooking::onTickInit();
-	}
-
-	if (dlcHash == 0x96F02EE6)
-	{
-		return true;
+		Update();
 	}
 
 	return fpIsDLCPresentOriginal(dlcHash);
