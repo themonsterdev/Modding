@@ -31,6 +31,12 @@
     <Filter Include="Fichiers sources\Memory">
       <UniqueIdentifier>{f9704cb8-7d60-4559-9f73-f25af4bb8d4d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Hooking">
+      <UniqueIdentifier>{d4440f0e-7e29-4d4a-94d7-985e80aed364}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Hooking">
+      <UniqueIdentifier>{406032c9-a90b-42a0-b795-d0006a673225}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -48,9 +54,6 @@
     <ClCompile Include="crossMapping.cpp">
       <Filter>Fichiers sources\Scripting</Filter>
     </ClCompile>
-    <ClCompile Include="hooking.cpp">
-      <Filter>Fichiers sources\Scripting</Filter>
-    </ClCompile>
     <ClCompile Include="invoker.cpp">
       <Filter>Fichiers sources\SDK</Filter>
     </ClCompile>
@@ -59,6 +62,12 @@
     </ClCompile>
     <ClCompile Include="scriptHooking.cpp">
       <Filter>Fichiers sources\Scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="trampoline.cpp">
+      <Filter>Fichiers sources\Hooking</Filter>
+    </ClCompile>
+    <ClCompile Include="hooking.cpp">
+      <Filter>Fichiers sources\Hooking</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -72,9 +81,6 @@
       <Filter>Fichiers d%27en-tête\Scripting</Filter>
     </ClInclude>
     <ClInclude Include="crossMapping.h">
-      <Filter>Fichiers d%27en-tête\Scripting</Filter>
-    </ClInclude>
-    <ClInclude Include="hooking.h">
       <Filter>Fichiers d%27en-tête\Scripting</Filter>
     </ClInclude>
     <ClInclude Include="types.h">
@@ -94,6 +100,12 @@
     </ClInclude>
     <ClInclude Include="scriptHooking.h">
       <Filter>Fichiers d%27en-tête\Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="trampoline.h">
+      <Filter>Fichiers d%27en-tête\Hooking</Filter>
+    </ClInclude>
+    <ClInclude Include="hooking.h">
+      <Filter>Fichiers d%27en-tête\Hooking</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

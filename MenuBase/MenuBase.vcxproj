@@ -164,6 +164,7 @@
     <ClCompile Include="scriptEngine.cpp" />
     <ClCompile Include="scriptHooking.cpp" />
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="trampoline.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Logger\Logger.vcxproj">
@@ -184,6 +185,7 @@
     <ClInclude Include="scriptEngine.h" />
     <ClInclude Include="scriptHooking.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="trampoline.h" />
     <ClInclude Include="types.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

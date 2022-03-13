@@ -1,0 +1,2 @@
+﻿  stdafx.cpp
+C:\Users\themo\OneDrive\Documents\GitHub\Modding\Logger\stdafx.cpp(2,1): error C2857: L'instruction '#include' spécifiée avec l'option de ligne de commande /Ycpch.h n'a pu être trouvée dans le fichier source

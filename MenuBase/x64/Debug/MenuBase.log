@@ -1,2 +1,8 @@
-﻿  dllmain.cpp
+﻿  hooking.cpp
+C:\Users\themo\OneDrive\Documents\GitHub\Modding\MenuBase\hooking.cpp(92,49): warning C4311: 'cast de type' : troncation de pointeur de 'LPVOID' à 'DWORD'
+C:\Users\themo\OneDrive\Documents\GitHub\Modding\MenuBase\hooking.cpp(92,49): warning C4302: 'cast de type' : troncation de 'LPVOID' à 'DWORD'
+C:\Users\themo\OneDrive\Documents\GitHub\Modding\MenuBase\hooking.cpp(92,67): warning C4311: 'cast de type' : troncation de pointeur de 'LPVOID' à 'DWORD'
+C:\Users\themo\OneDrive\Documents\GitHub\Modding\MenuBase\hooking.cpp(92,67): warning C4302: 'cast de type' : troncation de 'LPVOID' à 'DWORD'
+  trampoline.cpp
+  Génération de code en cours...
   MenuBase.vcxproj -> C:\Users\themo\OneDrive\Documents\GitHub\Modding\x64\Debug\MenuBase.dll

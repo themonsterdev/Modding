@@ -81,7 +81,9 @@ DWORD WINAPI StartThread(LPVOID lpParam)
 	while (true)
 	{
 		if (IsKeyPressed(VK_NUMPAD2))
+		{
 			break;
+		}
 
 		Sleep(300);
 	}

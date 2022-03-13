@@ -54,4 +54,6 @@ using namespace std;
 #include "pattern.h"
 #include "scriptHooking.h"
 #include "scriptEngine.h"
+
+#include "trampoline.h"
 #include "hooking.h"
